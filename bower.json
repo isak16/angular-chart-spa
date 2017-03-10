@@ -1,0 +1,23 @@
+{
+  "name": "angular-chart-spa",
+  "homepage": "https://github.com/isak16/angular-chart-spa",
+  "authors": [
+    "Isak Larsson <Isak454@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-ui-router": "ui-router#^0.4.2",
+    "bootstrap": "^3.3.7",
+    "angular-chart.js": "^1.1.1"
+  }
+}

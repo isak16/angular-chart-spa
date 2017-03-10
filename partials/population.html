@@ -1,0 +1,36 @@
+<section class="row-fluid image-cover">
+    <img ng-src="{{image}}"/>
+</section>
+
+
+<section class="col-md-8 col-md-offset-2  population-bar chart-container">
+    <span class="col-md-12"><p class="h1">Befolkningsmängd</p></span>
+
+    <form class="form city-form col-md-3" name="cityForm">
+
+        <div class="col-md-12">
+            <label for="stad" class="label label-default col-md-12 col-xs-12">Stad</label>
+            <input type="text" class="form-control" id="stad" placeholder="Stockholm" required ng-model="city.name">
+        </div>
+
+        <div class="col-md-12">
+            <label for="befolkning" class="label label-default col-md-12 col-xs-12">Invånare</label>
+            <input type="number" class="form-control" id="befolkning" placeholder="1372565" required ng-model="city.population">
+        </div>
+
+        <div class="col-md-12">
+            <button type="button" ng-disabled="cityForm.$error.required" class="btn btn-primary col-md-12" style="height:54px" ng-click="addCity()">Lägg till</button>
+        </div>
+    </form>
+
+    <div class="form-group col-md-2 pull-right">
+        <label for="chartSelector" class="label label-default col-md-12">Select chart:</label>
+        <select class="form-control" id="chartSelector" ng-options="item.label for item in selectChart" ng-model="selected" ng-change="chartChanged()"></select>
+    </div>
+
+    <div class="col-md-7">
+        <charts></charts>
+    </div>
+
+
+</section>

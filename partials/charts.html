@@ -1,0 +1,7 @@
+<div ng-switch="chartType">
+    <canvas ng-switch-when="pie" id="pie"  class="col-md-2 chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+    <canvas ng-switch-when="bar" id="bar"  class="col-md-12 chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+    <canvas ng-switch-when="doughnut" id="doughnut"  class="col-md-12 chart chart-doughnut" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+    <canvas ng-switch-when="polar" id="polar"  class="col-md-12 chart chart-polar-area" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+    <canvas ng-switch-default id="pie"  class="col-md-2 chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+</div>

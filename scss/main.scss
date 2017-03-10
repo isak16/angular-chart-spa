@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700');
+
+$font-color: whitesmoke;
+$bg-color: #888888;
+
+body {
+  padding-top: 70px;
+  background-color: #F2F2F2;
+  overflow-y: scroll;
+}
+
+.chart-container{
+  background-color: white;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding-bottom: 70px;
+  padding-top: 20px;
+}
+
+.city-form{
+  padding: 10px 0;
+  border: solid 1px #ddd;
+  .col-md-4{
+    padding: 0 10px;
+  }
+}
+
+population{
+  div.col-md-12{
+    margin-bottom: 10px;
+  }
+}
+
+.navbar-header{
+  height: 70px;
+}
+
+.main-content{
+  padding: 0 !important;
+
+}
+.image-cover{
+  padding: 0;
+  height: 250px;
+  overflow: hidden;
+  border-bottom: #6c6c6c solid 1px;
+}
+
+.image-cover img{
+  width: 100%;
+  clip: rect(0px,1920px,250px,0px);
+}
+//Bars
+.population-bar {
+  text-align: center;
+}
+
+//Bootstrap
+.header-custom{
+  height: 70px;
+  border-bottom: black solid 1px;
+  color: whitesmoke;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: $font-color !important;
+  line-height: 40px;
+  font-size: 19px;
+}
+
+.navbar {
+  background-color: #2f3850;
+}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand {
+  color: $font-color;
+
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: $font-color;
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 766px) {
+  .collapsing, .in {
+    background-color: rgba(35, 44, 67, 0.75);
+  }
+}
+
+.navbar-default .navbar-brand {
+  color: $font-color !important;
+  background-color: transparent !important;
+  font-size: 27px;
+  line-height: 40px !important;
+}
+
+.label-default{
+  margin: 0;
+}

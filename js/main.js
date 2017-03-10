@@ -19,8 +19,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     });
 });
 
-//Global variabel
+
 app.run(function ($rootScope) {
+    //Global variabel
     $rootScope.selectChart = [{
         chart: "pie",
         label: "Pie chart"

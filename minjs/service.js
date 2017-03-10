@@ -1,0 +1,1 @@
+app.service("getDataFrom",["$http",function(t){return{jonkri:function(){return t({method:"GET",url:"http://cities.jonkri.se/0.0.0/cities"})}}}]);

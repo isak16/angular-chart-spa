@@ -3,8 +3,6 @@
  */
 var app = angular.module('app', ['ui.router', 'chart.js']);
 
-
-
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/");
 
@@ -41,18 +39,17 @@ app.run(function ($rootScope, getDataFrom) {
     getDataFrom.jonkriGet().then(function (response) {
         $rootScope.dataToChart = response.data.items;
         console.log("Get successful");
-    },function (error) {
+    }, function (error) {
         console.log(error);
     });
 });
 
 
-app.controller('populationController', function ($scope, $filter, $rootScope, getDataFrom){
+app.controller('populationController', function ($scope, $filter, $rootScope, getDataFrom) {
     $scope.image = "images/img.jpg";
 
     $scope.labels = [];
     $scope.data = [];
-
 
     $rootScope.$watch('dataToChart', function (newVal) {
         $scope.labels.length = 0;
@@ -67,7 +64,7 @@ app.controller('populationController', function ($scope, $filter, $rootScope, ge
     $scope.addCity = function () {
         getDataFrom.jonkriPost($scope.city).then(function () {
             console.log("Post successful");
-        },function (error) {
+        }, function (error) {
             console.log(error);
         });
 
@@ -79,7 +76,7 @@ app.controller('populationController', function ($scope, $filter, $rootScope, ge
 
 
     $scope.selected = $rootScope.selected;
-    $scope.chartChanged = function() {
+    $scope.chartChanged = function () {
         $rootScope.chartType = $scope.selected.chart;
         $rootScope.selected = $scope.selected;
     }
@@ -136,24 +133,22 @@ app.controller('densityController', function ($scope, $rootScope, $filter) {
         }
     };
 
-    console.log();
     $rootScope.$watch('dataToChart', function (newVal) {
         $scope.labels.length = 0;
         $scope.data.length = 0;
         var chartData = $filter("orderBy")(newVal, "+population");
         angular.forEach(chartData, function (value) {
-            if($scope.areaData[value.name]){
+            if ($scope.areaData[value.name]) {
                 $scope.labels.push(value.name);
                 //Filter "number" ger ett komma i numret, använder standard js istället
                 //Tar fram arean ifrån "areaData" objektet. Delar populationen på arean och korta ner till två decimaler
-                $scope.data.push((Math.round((value.population/$scope.areaData[value.name].area) * 100) / 100));
+                $scope.data.push((Math.round((value.population / $scope.areaData[value.name].area) * 100) / 100));
             }
         });
     }, true);
 
-
     $scope.selected = $rootScope.selected;
-    $scope.chartChanged = function() {
+    $scope.chartChanged = function () {
         $rootScope.chartType = $scope.selected.chart;
         $rootScope.selected = $scope.selected;
     }

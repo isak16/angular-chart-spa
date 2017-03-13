@@ -15,17 +15,21 @@
 
         <div class="col-md-12">
             <label for="befolkning" class="label label-default col-md-12 col-xs-12">Invånare</label>
-            <input type="number" class="form-control" id="befolkning" placeholder="1372565" required ng-model="city.population">
+            <input type="number" class="form-control" id="befolkning" placeholder="1372565" required
+                   ng-model="city.population">
         </div>
 
         <div class="col-md-12">
-            <button type="button" ng-disabled="cityForm.$error.required" class="btn btn-primary col-md-12" style="height:54px" ng-click="addCity()">Lägg till</button>
+            <button type="button" ng-disabled="cityForm.$error.required" class="btn btn-primary col-md-12"
+                    style="height:54px" ng-click="addCity()">Lägg till
+            </button>
         </div>
     </form>
 
     <div class="form-group col-md-2 pull-right">
         <label for="chartSelector" class="label label-default col-md-12">Select chart:</label>
-        <select class="form-control" id="chartSelector" ng-options="item.label for item in selectChart" ng-model="selected" ng-change="chartChanged()"></select>
+        <select class="form-control" id="chartSelector" ng-options="item.label for item in selectChart"
+                ng-model="selected" ng-change="chartChanged()"></select>
     </div>
 
     <div class="col-md-7">

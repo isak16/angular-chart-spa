@@ -3,13 +3,18 @@
  */
 
 app.service('getDataFrom', function ($http) {
-    return {
-        jonkri: function () {
-            return $http({
-                method: 'GET',
-                url: 'http://cities.jonkri.se/0.0.0/cities'
-            });
-        }
+    this.jonkriGet = function () {
+        return $http({
+            method: 'GET',
+            url: 'http://cities.jonkri.se/0.0.0/cities'
+        });
+    };
+    this.jonkriPost = function (obj) {
+        return $http({
+            method: 'POST',
+            url: 'http://cities.jonkri.se/0.0.0/cities',
+            data: obj
+        });
     };
 });
 

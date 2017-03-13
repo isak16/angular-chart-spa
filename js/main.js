@@ -20,7 +20,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 
-app.run(function ($rootScope) {
+app.run(function ($rootScope, getDataFrom) {
     //Global variabel
     $rootScope.selectChart = [{
         chart: "pie",
@@ -36,7 +36,14 @@ app.run(function ($rootScope) {
         label: "Polar chart"
     }];
 
+    $rootScope.selected = $rootScope.selectChart[0];
 
+    getDataFrom.jonkriGet().then(function (response) {
+        $rootScope.dataToChart = response.data.items;
+        console.log("Get successful");
+    },function (error) {
+        console.log(error);
+    });
 });
 
 
@@ -45,17 +52,9 @@ app.controller('populationController', function ($scope, $filter, $rootScope, ge
 
     $scope.labels = [];
     $scope.data = [];
-    $scope.dataToChart = [];
 
 
-    getDataFrom.jonkri().then(function (response) {
-        $scope.dataToChart = response.data.items;
-    },function (error) {
-        console.log("error");
-    });
-
-
-    $scope.$watch('dataToChart', function (newVal) {
+    $rootScope.$watch('dataToChart', function (newVal) {
         $scope.labels.length = 0;
         $scope.data.length = 0;
         var chartData = $filter("orderBy")(newVal, "+population");
@@ -66,15 +65,20 @@ app.controller('populationController', function ($scope, $filter, $rootScope, ge
     }, true);
 
     $scope.addCity = function () {
-        $scope.dataToChart.push($scope.city);
+        getDataFrom.jonkriPost($scope.city).then(function () {
+            console.log("Post successful");
+        },function (error) {
+            console.log(error);
+        });
 
+        $rootScope.dataToChart.push($scope.city);
         $scope.city = {};
         $scope.cityForm.$setPristine();
         $scope.cityForm.$setUntouched();
     };
 
 
-    if(!$scope.selected) $scope.selected = $rootScope.selectChart[0];
+    $scope.selected = $rootScope.selected;
     $scope.chartChanged = function() {
         $rootScope.chartType = $scope.selected.chart;
         $rootScope.selected = $scope.selected;
@@ -83,62 +87,72 @@ app.controller('populationController', function ($scope, $filter, $rootScope, ge
 });
 
 
-app.controller('densityController', function ($scope, $rootScope) {
+app.controller('densityController', function ($scope, $rootScope, $filter) {
     $scope.image = "images/density.jpg";
     $scope.labels = [];
     $scope.data = [];
 
 
-    var fakeData = [
-        {
-            "name": "Sundbyberg",
-            "densitet": 642
-        },
-        {
-            "name": "Solna",
-            "densitet": 982
-        },
-        {
-            "name": "Malmö",
-            "densitet": 1044
-        },
-        {
-            "name": "Lidingö",
-            "densitet": 773
-        },
-        {
-            "name": "Järfälla",
-            "densitet": 671
-        },
-        {
-            "name": "Sollentuna",
-            "densitet": 670
-        },
-        {
-            "name": "Danderyd",
-            "densitet": 627
-        },
-        {
-            "name": "Göteborg",
-            "densitet": 615
-        },
-        {
+    $scope.areaData = {
+        "Stockholm": {
             "name": "Stockholm",
-            "densitet": 2502
+            "area": 180
         },
-        {
-            "name": "Täby",
-            "densitet": 567
+        "Göteborg": {
+            "name": "Göteborg",
+            "area": 450
+        },
+        "Malmö": {
+            "name": "Malmö",
+            "area": 158.4
+        },
+        "Uppsala": {
+            "name": "Uppsala",
+            "area": 48.79
+        },
+        "Västerås": {
+            "name": "Västerås",
+            "area": 52.94
+        },
+        "Örebro": {
+            "name": "Örebro",
+            "area": 49.27
+        },
+        "Linköping": {
+            "name": "Linköping",
+            "area": 42.16
+        },
+        "Helsingborg": {
+            "name": "Helsingborg",
+            "area": 38.41
+        },
+        "Jönköping": {
+            "name": "Jönköping",
+            "area": 44.33
+        },
+        "Norrköping": {
+            "name": "Norrköping",
+            "area": 35.68
         }
-    ];
+    };
 
-    angular.forEach(fakeData, function (value) {
-        $scope.labels.push(value.name);
-        $scope.data.push(value.densitet);
-    });
+    console.log();
+    $rootScope.$watch('dataToChart', function (newVal) {
+        $scope.labels.length = 0;
+        $scope.data.length = 0;
+        var chartData = $filter("orderBy")(newVal, "+population");
+        angular.forEach(chartData, function (value) {
+            if($scope.areaData[value.name]){
+                $scope.labels.push(value.name);
+                //Filter "number" ger ett komma i numret, använder standard js istället
+                //Tar fram arean ifrån "areaData" objektet. Delar populationen på arean och korta ner till två decimaler
+                $scope.data.push((Math.round((value.population/$scope.areaData[value.name].area) * 100) / 100));
+            }
+        });
+    }, true);
 
 
-    if(!$scope.selected) $scope.selected = $rootScope.selectChart[0];
+    $scope.selected = $rootScope.selected;
     $scope.chartChanged = function() {
         $rootScope.chartType = $scope.selected.chart;
         $rootScope.selected = $scope.selected;
